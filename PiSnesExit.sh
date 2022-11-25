@@ -22,7 +22,8 @@ else
 fi
 
 #Temporally killing dosbox too
-PID_DOSBOX=$(ps ax | grep dosbox | grep tty | cut -f2 -d" " )
+PID_DOSBOX=$(ps axf | grep dosbox | grep -v grep | awk '{print $1}')
+
 if [[ "$PID_DOSBOX" != "" ]]; then
 	kill -9 $PID_DOSBOX
 	logInfo "Process Dosbox Terminated PID($PID_DOSBOX)"
