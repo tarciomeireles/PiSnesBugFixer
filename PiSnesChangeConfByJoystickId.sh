@@ -19,8 +19,12 @@ logInfo(){
 	echo "$DT: $1" >> $log_file
 }
 
+# Gets the ID of a joystick
+# Argument $1: filename without path of joystick device. Example: js0, js1, js2
+# Returns the Identification string of device: Examples:  usb-Logitech_Gamepad_F310_F1BB2997-joystick, usb-0810_usb_gamepad-joystick
+#
 getJSId(){
-	JOYSTICK_ID=$(ls -lirth /dev/input/by-id/ | grep /$1 | cut -f10 -d" ")
+	JOYSTICK_ID=$(udevadm info /dev/input/$1 | grep "input/by-id/" | grep "S:" | cut -f3 -d"/")
 	echo $JOYSTICK_ID
 }
 
